@@ -17,12 +17,18 @@ ln -s .rpi-uenv/.screenrc
 ln -s .rpi-uenv/.bash_aliases
 ```
 
+## Configure bash
+
+```
+echo -e "\nif [ -f ~/.rpi-uenv/.bashrc ]; then\n  . ~/.rpi-uenv/.bashrc\nfi\n" >> ~/.bashrc
+```
+
 ## Configure git
 
 ```
 git config --global user.name "<<Your name>>"
 git config --global user.email "<<your.email.address@example.com>>"
 
-echo -e "[include]\n  path = ~/.rpi-uenv/.gitconfig\n" >> ~/.gitconfig
+echo -e "\n[include]\n  path = ~/.rpi-uenv/.gitconfig\n" >> ~/.gitconfig
 ```
 
