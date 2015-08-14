@@ -1,0 +1,30 @@
+#--------------------------------------------------------------------------------#
+# .screenrc
+#--------------------------------------------------------------------------------#
+# @author  | Artem
+# @email   | artem.teleshev@gmail.com
+# @site    | http://phpsw.net
+# @version | 1.0.0
+#--------------------------------------------------------------------------------#
+
+startup_message off   # Who cares :P 
+nethack on            # Nicer messages 
+vbell off             # I hate barking dogs :P 
+msgminwait 0          # the first message is ignored. 
+defscrollback 10000 
+log off 
+ 
+hardstatus alwayslastline
+hardstatus string '%{= BW} %d/%m/%y %{= kG} %H %{W}[%n] %=[ %w ] [ %{r}%l%{W} ] %{BW} %c %{= kw}'
+
+# applyed .bashrc
+shell -$SHELL
+
+# These apps are started up on default when a new screen-session is started. 
+screen -t ~ 0 bash 
+screen -t db 1 bash
+screen -t / 2 bash 
+ 
+# change the default c-a to c-e, use c-e s to get a litteral c-e 
+#escape ^Ee
+
