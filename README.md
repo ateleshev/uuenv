@@ -11,10 +11,10 @@ git clone https://github.com/ArtemTeleshev/rpi-uenv.git ~/.rpi-uenv
 
 ```
 cd  ~
-ln -s ~/.rpi-uenv/.vim
-ln -s ~/.rpi-uenv/.vimrc
-ln -s ~/.rpi-uenv/.screenrc
-ln -s ~/.rpi-uenv/.bash_aliases
+ln -s .rpi-uenv/.vim
+ln -s .rpi-uenv/.vimrc
+ln -s .rpi-uenv/.screenrc
+ln -s .rpi-uenv/.bash_aliases
 ```
 
 ## Configure bash
