@@ -7,7 +7,13 @@
 "--------------------------------------------------------------------------
 
 syntax on              " - enable syntax highlight
-colorscheme evening
+"Color schemes:
+"[blue|delek|desert|default|darkblue|evening|elflord|industry|koehler|morning|murphy|pablo|peachpuff|ron|shine|slate|torte|zellner]
+""Better schemes:
+" 1) elflord
+" " 2) pablo
+" " 3) ron
+colorscheme elflord
 set background=dark
 set ignorecase
 set incsearch

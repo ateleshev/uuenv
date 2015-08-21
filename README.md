@@ -11,16 +11,19 @@ git clone https://github.com/ArtemTeleshev/rpi-uenv.git ~/.rpi-uenv
 
 ```
 cd  ~
-ln -s .rpi-uenv/.vim
-ln -s .rpi-uenv/.vimrc
-ln -s .rpi-uenv/.screenrc
-ln -s .rpi-uenv/.bash_aliases
+ln -s ~/.rpi-uenv/.vim
+ln -s ~/.rpi-uenv/.vimrc
+ln -s ~/.rpi-uenv/.screenrc
+ln -s ~/.rpi-uenv/.bash_aliases
 ```
 
 ## Configure bash
 
 ```
-echo -e "\nif [ -f ~/.rpi-uenv/.bashrc ]; then\n  . ~/.rpi-uenv/.bashrc\nfi\n" >> ~/.bashrc
+echo "# include .bashrc from .rpi-uenv" >> ~/.bashrc
+echo "if [ -f ~/.rpi-uenv/.bashrc ]; then" >> ~/.bashrc
+echo "  . ~/.rpi-uenv/.bashrc" >> ~/.bashrc
+echo "fi" >> ~/.bashrc
 ```
 
 ## Configure git
@@ -29,6 +32,7 @@ echo -e "\nif [ -f ~/.rpi-uenv/.bashrc ]; then\n  . ~/.rpi-uenv/.bashrc\nfi\n" >
 git config --global user.name "<<Your name>>"
 git config --global user.email "<<your.email.address@example.com>>"
 
-echo -e "\n[include]\n  path = ~/.rpi-uenv/.gitconfig\n" >> ~/.gitconfig
+echo "[include]" >> ~/.gitconfig
+echo "  path = ~/.rpi-uenv/.gitconfig" >> ~/.gitconfig
 ```
 
