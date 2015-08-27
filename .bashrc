@@ -26,15 +26,21 @@ export PAGER=less;
 # Title for terminal (Gnome3) 
 export PROMPT_COMMAND='echo -ne "\033]0;$(basename ${PWD})\007"' 
 
+WORKSPACE="${HOME}/workspace"
 if [ $UID == 0 ] ; then # Root
   PATH="/usr/local/sbin:/usr/sbin:/sbin:/usr/local/bin:/usr/bin:/bin"
   PS1="\[\033[01;44m\] \A \[\033[00m\] [\u@\h] \[\033[01;36m\]\w\[\033[00m\] # "
   MYSQL_PS1="[\R:\m] \d # "
+  if [ "${SUDO_USER}" != "" ] ; then
+    WORKSPACE="$(getent passwd ${SUDO_USER} | cut -d: -f6)/workspace"
+  fi
 else
   PATH="/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/sbin:/sbin"
   PS1="\[\033[01;44m\] \A \[\033[00m\] [\u@\h] \[\033[01;36m\]\W\[\033[00m\] > "
   MYSQL_PS1="[\R:\m] \d > "
 fi
+
+export WORKSPACE
 
 # PS1
 # \w - full path to current directory
@@ -61,11 +67,11 @@ export MYSQL_PS1
 #  PATH=$GOROOT/bin:$PATH
 #fi
 
-if [ -d "${HOME}/go" ] ; then
-  export GOPATH=${HOME}/go
+if [ -d "${WORKSPACE}/go" ] ; then
+  export GOPATH="${WORKSPACE}/go"
 
   if [ -d "${GOPATH}/bin" ] ; then
-    export GOBIN=${GOPATH}/bin
+    export GOBIN="${GOPATH}/bin"
     PATH="${GOBIN}:${PATH}"
   fi
 fi
