@@ -25,7 +25,7 @@ export EDITOR=vim;
 # Default pager
 export PAGER=less;
 # Title for terminal (Gnome3) 
-export PROMPT_COMMAND='echo -ne "\033]0;$(basename ${PWD})\007"' 
+export PROMPT_COMMAND='echo -ne "\033]0;$(hostname) | $(basename ${PWD})\007"' 
 
 WORKSPACE="${HOME}/workspace"
 if [ $UID == 0 ] ; then # Root
