@@ -16,17 +16,17 @@ git clone https://github.com/ArtemTeleshev/uuenv.git ~/.uuenv
 
 ```
 cd  ~
-ln -s .nix-uenv/.vim
-ln -s .nix-uenv/.vimrc
-ln -s .nix-uenv/.screenrc
+ln -s .uuenv/.vim
+ln -s .uuenv/.vimrc
+ln -s .uuenv/.screenrc
 ```
 
 ## Configure bash
 
 ```
-echo "# include .bashrc from .nix-uenv" >> ~/.bashrc
-echo "if [ -f ~/.nix-uenv/.bashrc ]; then" >> ~/.bashrc
-echo "  . ~/.nix-uenv/.bashrc" >> ~/.bashrc
+echo "# include .bashrc from .uuenv" >> ~/.bashrc
+echo "if [ -f ~/.uuenv/.bashrc ]; then" >> ~/.bashrc
+echo "  . ~/.uuenv/.bashrc" >> ~/.bashrc
 echo "fi" >> ~/.bashrc
 ```
 
@@ -37,6 +37,6 @@ git config --global user.name "<<Your name>>"
 git config --global user.email "<<your.email.address@example.com>>"
 
 echo "[include]" >> ~/.gitconfig
-echo "  path = ~/.nix-uenv/.gitconfig" >> ~/.gitconfig
+echo "  path = ~/.uuenv/.gitconfig" >> ~/.gitconfig
 ```
 
