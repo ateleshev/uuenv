@@ -1,27 +1,27 @@
-# rpi-uenv
-Raspberry Pi user environment
+# nix-uenv
+*nix (Unix|Linux|FreeBSD) user environment
 
 ## Clone the project to home directory
 
 ```
-git clone https://github.com/ArtemTeleshev/rpi-uenv.git ~/.rpi-uenv
+git clone https://github.com/ArtemTeleshev/nix-uenv.git ~/.nix-uenv
 ```
 
 ## Configure environment
 
 ```
 cd  ~
-ln -s .rpi-uenv/.vim
-ln -s .rpi-uenv/.vimrc
-ln -s .rpi-uenv/.screenrc
+ln -s .nix-uenv/.vim
+ln -s .nix-uenv/.vimrc
+ln -s .nix-uenv/.screenrc
 ```
 
 ## Configure bash
 
 ```
-echo "# include .bashrc from .rpi-uenv" >> ~/.bashrc
-echo "if [ -f ~/.rpi-uenv/.bashrc ]; then" >> ~/.bashrc
-echo "  . ~/.rpi-uenv/.bashrc" >> ~/.bashrc
+echo "# include .bashrc from .nix-uenv" >> ~/.bashrc
+echo "if [ -f ~/.nix-uenv/.bashrc ]; then" >> ~/.bashrc
+echo "  . ~/.nix-uenv/.bashrc" >> ~/.bashrc
 echo "fi" >> ~/.bashrc
 ```
 
@@ -32,6 +32,6 @@ git config --global user.name "<<Your name>>"
 git config --global user.email "<<your.email.address@example.com>>"
 
 echo "[include]" >> ~/.gitconfig
-echo "  path = ~/.rpi-uenv/.gitconfig" >> ~/.gitconfig
+echo "  path = ~/.nix-uenv/.gitconfig" >> ~/.gitconfig
 ```
 
