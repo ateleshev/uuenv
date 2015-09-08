@@ -9,7 +9,7 @@ git clone https://github.com/ArtemTeleshev/uuenv.git ~/.uuenv
 ## And execute
 
 ```
-~/.uuenv/bin/install
+~/.uuenv/bin/configure
 ```
 
 ## Or configure environment manually

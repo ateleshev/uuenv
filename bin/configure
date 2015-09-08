@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-NAME=".nix-uenv"
+NAME=".uuenv"
 
 if [ ! -x "$(which realpath)" ]; then
   echo "[${NAME}] The 'realpath' is not installed"
