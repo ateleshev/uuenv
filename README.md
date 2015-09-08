@@ -1,13 +1,18 @@
-# nix-uenv
-*nix (Unix|Linux|FreeBSD) user environment
+# uuenv
+[u]nix [u]ser [env]ironment
 
 ## Clone the project to home directory
 
 ```
-git clone https://github.com/ArtemTeleshev/nix-uenv.git ~/.nix-uenv
+git clone https://github.com/ArtemTeleshev/uuenv.git ~/.uuenv
+```
+## And execute
+
+```
+~/.uuenv/bin/install
 ```
 
-## Configure environment
+## Or configure environment manually
 
 ```
 cd  ~
