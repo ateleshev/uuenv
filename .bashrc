@@ -10,9 +10,9 @@
 #===============================================================================================
 DIR="$(dirname ${BASH_SOURCE[0]})"
 
-export LC_ALL=en_US.UTF-8
-export LANG=en_US.UTF-8
-export LANGUAGE=en_US.UTF-8
+export LANG="ru_RU.UTF-8"
+export LANGUAGE="ru_RU.UTF-8"
+export LC_ALL="ru_RU.UTF-8"
 
 # [U]ser [L]ocal [LIB]rary [HOME] directory
 export UL_LIB_HOME="/usr/local/lib"

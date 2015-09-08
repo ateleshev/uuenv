@@ -1,0 +1,75 @@
+# Bash functions
+
+function show_ok() { # {{{
+  echo "[ OK ]"
+} # }}}
+
+function show_error() { # {{{
+  echo "[ Error ]"
+  echo "  - ${1}"
+  exit 1
+} # }}}
+
+function check_error() { # {{{
+  if [ "${1}" != "" ] ; then
+    show_error "${1}"
+  fi
+} # }}}
+
+function configure_uenv() { # {{{
+  echo -n "[${NAME}] Configure user environment ... "
+
+  cd ~
+  check_error "$(ln -s ${NAME}/.vim 2>&1 >/dev/null)"
+  check_error "$(ln -s ${NAME}/.vimrc 2>&1 >/dev/null)"
+  check_error "$(ln -s ${NAME}/.screenrc 2>&1 >/dev/null)"
+
+  show_ok
+} # }}}
+
+function configure_bash() { # {{{
+  echo -n "[${NAME}] Configure bash ... "
+
+  echo "# include .bashrc from ${NAME}" >> ~/.bashrc
+  echo "if [ -f ~/${NAME}/.bashrc ]; then" >> ~/.bashrc
+  echo "  . ~/${NAME}/.bashrc" >> ~/.bashrc
+  echo "fi" >> ~/.bashrc
+
+  show_ok
+} # }}}
+
+function configure_git() { # {{{
+  > ~/.gitconfig
+
+  echo -n "[${NAME}] Enter git user name (Example: Ivan Ivanov): "
+  while read GIT_USER_NAME
+  do
+    check_error "$(git config --global user.name "${GIT_USER_NAME}" 2>&1 >/dev/null)"
+    break
+  done
+
+  echo -n "[${NAME}] Enter git user email (Example: ivan.ivanov@example.com): "
+  while read GIT_USER_EMAIL
+  do
+    check_error "$(git config --global user.email "${GIT_USER_EMAIL}" 2>&1 >/dev/null)"
+    break
+  done
+
+  echo -n "[${NAME}] Configure git ... "
+
+  echo "[include]" >> ~/.gitconfig
+  echo "  path = ~/${NAME}/.gitconfig" >> ~/.gitconfig
+
+  show_ok
+} # }}}
+
+function clean_uenv() { # {{{
+  echo -n "[${NAME}] Clean user environment ... "
+
+  cd ~
+  check_error "$(rm -rf ~/.vim 2>&1 >/dev/null)"
+  check_error "$(rm -rf ~/.vimrc 2>&1 >/dev/null)"
+  check_error "$(rm -rf ~/.screenrc 2>&1 >/dev/null)"
+
+  show_ok
+} # }}}

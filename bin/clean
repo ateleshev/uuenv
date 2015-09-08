@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+
+NAME=".nix-uenv"
+
+if [ ! -x "$(which realpath)" ]; then
+  echo "[${NAME}] The 'realpath' is not installed"
+fi
+
+SCRIPT=$(realpath "${0}")
+DIR=$(dirname "$(dirname "${SCRIPT}")")
+NAME=$(basename "${DIR}")
+
+if [ -f "${DIR}/lib/functions" ]; then
+  . "${DIR}/lib/functions"
+else
+  echo "[${NAME}] Cannot include: '${DIR}/lib/functions'"
+  exit 1
+fi
+
+clean_uenv
+
