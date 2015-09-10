@@ -24,6 +24,15 @@ function configure_uenv() { # {{{
   check_error "$(ln -s ${NAME}/.vimrc 2>&1 >/dev/null)"
   check_error "$(ln -s ${NAME}/.screenrc 2>&1 >/dev/null)"
 
+  # Configure htop
+  if [ ! -d ~/.config ]; then
+    check_error "$(mkdir ~/.config 2>&1 >/dev/null)"
+  fi
+
+  cd ~/.config
+  check_error "$(rm -rf htop 2>&1 >/dev/null)"
+  check_error "$(ln -s ~/${NAME}/.config/htop 2>&1 >/dev/null)"
+
   show_ok
 } # }}}
 
@@ -41,9 +50,8 @@ function configure_bash() { # {{{
 } # }}}
 
 function configure_git() { # {{{
-  > ~/.gitconfig
-
   echo -n "[${NAME}] Enter git user name (Example: Ivan Ivanov): "
+
   while read GIT_USER_NAME
   do
     check_error "$(git config --global user.name "${GIT_USER_NAME}" 2>&1 >/dev/null)"
@@ -70,8 +78,17 @@ function clean_uenv() { # {{{
 
   cd ~
   check_error "$(rm -rf ~/.vim 2>&1 >/dev/null)"
-  check_error "$(rm -rf ~/.vimrc 2>&1 >/dev/null)"
-  check_error "$(rm -rf ~/.screenrc 2>&1 >/dev/null)"
+  check_error "$(rm ~/.vimrc 2>&1 >/dev/null)"
+  check_error "$(rm ~/.screenrc 2>&1 >/dev/null)"
 
   show_ok
 } # }}}
+  
+function clean_git() { # {{{
+  echo -n "[${NAME}] Clean git configuration ... "
+
+  check_error "$(rm ~/.gitconfig 2>&1 >/dev/null)"
+
+  show_ok
+} # }}}
+

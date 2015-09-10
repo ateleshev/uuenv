@@ -18,4 +18,5 @@ else
 fi
 
 clean_uenv
+clean_git
 
