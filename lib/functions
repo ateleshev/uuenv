@@ -30,10 +30,12 @@ function configure_uenv() { # {{{
 function configure_bash() { # {{{
   echo -n "[${NAME}] Configure bash ... "
 
+  echo "" >> ~/.bashrc
   echo "# include .bashrc from ${NAME}" >> ~/.bashrc
   echo "if [ -f ~/${NAME}/.bashrc ]; then" >> ~/.bashrc
   echo "  . ~/${NAME}/.bashrc" >> ~/.bashrc
   echo "fi" >> ~/.bashrc
+  echo "" >> ~/.bashrc
 
   show_ok
 } # }}}
