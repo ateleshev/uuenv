@@ -27,13 +27,15 @@ export PAGER=less;
 # Title for terminal (Gnome3) 
 export PROMPT_COMMAND='echo -ne "\033]0;$(hostname) | $(basename ${PWD})\007"' 
 
-WORKSPACE="${HOME}/workspace"
+WORKSPACE_DIR="${HOME}"
+WORKSPACE_NAME="workspace"
+
 if [ $UID == 0 ] ; then # Root
   PATH="/usr/local/sbin:/usr/sbin:/sbin:/usr/local/bin:/usr/bin:/bin"
   PS1="\[\033[01;44m\] \A \[\033[00m\] [\u@\h] \[\033[01;36m\]\w\[\033[00m\] # "
   MYSQL_PS1="[\R:\m] \d # "
   if [ "${SUDO_USER}" != "" ] ; then
-    WORKSPACE="$(getent passwd ${SUDO_USER} | cut -d: -f6)/workspace"
+    WORKSPACE_DIR="$(getent passwd ${SUDO_USER} | cut -d: -f6)"
   fi
 else
   PATH="/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/sbin:/sbin"
@@ -41,7 +43,7 @@ else
   MYSQL_PS1="[\R:\m] \d > "
 fi
 
-export WORKSPACE
+export WORKSPACE=$(realpath "${WORKSPACE_DIR}/${WORKSPACE_NAME}")
 
 # PS1
 # \w - full path to current directory
