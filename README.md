@@ -1,6 +1,16 @@
 # uuenv
 [u]nix [u]ser [env]ironment
 
+## Reconfigure locales
+
+```
+sudo dpkg-reconfigure locales
+  en_US.UTF-8 ... done
+  ru_RU.UTF-8 ... done
+  ru_UA.UTF-8 ... done
+  uk_UA.UTF-8 ... done
+```
+
 ## Clone the project to home directory
 
 ```
