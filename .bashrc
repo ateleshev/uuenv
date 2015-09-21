@@ -30,8 +30,9 @@ export LD_LIBRARY_PATH="${UL_LIB_HOME}:/usr/lib:/lib"
 
 # Locale
 export LANG="en_US.UTF-8"
-export LANGUAGE="en_US.UTF-8"
 export LC_ALL="en_US.UTF-8"
+# Language
+export LANGUAGE="en_US:en"
 
 # Default editor
 export EDITOR=vim;
