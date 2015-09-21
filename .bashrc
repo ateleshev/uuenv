@@ -10,15 +10,28 @@
 #===============================================================================================
 DIR="$(dirname ${BASH_SOURCE[0]})"
 
-export LANG="ru_UA.UTF-8"
-export LANGUAGE="ru_UA.UTF-8"
-export LC_ALL="ru_UA.UTF-8"
-
 # [U]ser [L]ocal [LIB]rary [HOME] directory
 export UL_LIB_HOME="/usr/local/lib"
 
 # [L]inker [D]ynamic (https://en.wikipedia.org/wiki/Environment_variable)
 export LD_LIBRARY_PATH="${UL_LIB_HOME}:/usr/lib:/lib"
+
+# Locales configuration
+# > sudo dpkg-reconfigure locales
+# ---
+# Use "en_US.UTF-8" as default
+# ---
+# Generating locales (this might take a while)...
+#  en_US.UTF-8... done
+#  ru_RU.UTF-8... done
+#  ru_UA.UTF-8... done
+#  uk_UA.UTF-8... done
+# Generation complete.
+
+# Locale
+export LANG="en_US.UTF-8"
+export LANGUAGE="en_US.UTF-8"
+export LC_ALL="en_US.UTF-8"
 
 # Default editor
 export EDITOR=vim;
