@@ -14,8 +14,14 @@ msgminwait 0          # the first message is ignored.
 defscrollback 10000 
 log off 
  
+hardstatus off
 hardstatus alwayslastline
 hardstatus string '%{= BW} %d/%m/%y %{= kG} %H %{W}[%n] %=[ %w ] [ %{r}%l%{W} ] %{BW} %c %{= kw}'
+
+#windowlist string "%4n %h%=%f"
+#hardstatus string '%{= kG}[ %{G}%H %{g}][%= %{= kw}%?%-Lw%?%{r}(%{W}%n*%f%t%?(%u)%?%{r})%{w}%?%+Lw%?%?%= %{g}][%{B} %m-%d %{W} %c %{g}]'
+#termcapinfo xterm 'Co#256:AB=\E[48;5;%dm:AF=\E[38;5;%dm'   # tell screen how to set colors. AB = background, AF=foreground
+#defbce on    # use current bg color for erased chars
 
 # applyed .bashrc
 shell -$SHELL

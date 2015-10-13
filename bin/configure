@@ -20,4 +20,5 @@ fi
 configure_uenv
 configure_bash
 configure_git
+configure_profile
 
