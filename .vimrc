@@ -33,12 +33,9 @@ set rtp+=$GOROOT/misc/vim  " - Added path to golang syntax highlighter
 
 set nocp
 
-filetype off
-
 call pathogen#helptags()
 call pathogen#incubate()
 
-filetype plugin on
 filetype plugin indent on
 
 " :helptags
@@ -84,7 +81,7 @@ endfunction
 
 " :call GoFmt() - for formatting Go
 function! GoFmt()
-  :execute "!gofmt -w %" 
+  :execute "!gofmt -w %"
   :execute "edit"
   :execute "set filetype=go"
 endfunction
@@ -94,4 +91,14 @@ endfunction
 " :set number - show number of line
 " :set nonumber - hide number of line
 " :SQLUFormatter - formatting SQL
+
+" [Auto-Complete PHP]
+" Enable in vim:
+"   :set omnifunc=phpcomplete#CompletePHP
+" Enable on ~/.vimrc level
+"   autocmd FileType php set omnifunc=phpcomplete#CompletePHP
+
+" For comment block of code
+vnoremap <silent> // :s#^#//#<cr>:noh<cr>
+vnoremap <silent> -// :s#^//##<cr>:noh<cr>
 
