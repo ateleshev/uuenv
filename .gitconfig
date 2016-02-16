@@ -9,7 +9,9 @@
 
 [core] # http://githowto.com/ ------------------------------------------- {{{ ---#
   editor = vim
-#  autocrlf = true
+
+  # AutoCRLF: https://help.github.com/articles/dealing-with-line-endings/
+  autocrlf = input
 #------------------------------------------------------------------------ }}} ---#
 
 [color] # http://githowto.com/ ------------------------------------------ {{{ ---#
