@@ -11,7 +11,7 @@
   editor = vim
 
   # AutoCRLF: https://help.github.com/articles/dealing-with-line-endings/
-  autocrlf = input
+  autocrlf = false
 #------------------------------------------------------------------------ }}} ---#
 
 [color] # http://githowto.com/ ------------------------------------------ {{{ ---#
@@ -25,7 +25,7 @@
   br = branch
   fp = format-patch --stdout -1
   patch = format-patch --no-prefix --stdout -1
-  hist = log --pretty=format:\"%H | %ad | %s%d [%an]\" --graph --date=short
+  hist = log --pretty=format:\"%h | %ad | %s%d [%an]\" --graph --date=short
   type = cat-file -t
   dump = cat-file -p
 #------------------------------------------------------------------------ }}} ---#
