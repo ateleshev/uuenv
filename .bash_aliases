@@ -16,6 +16,7 @@ alias cpr='cp -r'
 alias df='df -H'
 alias du='du -h'
 alias dus='du -hs'
+alias tf='tail -f'
 
 if [ ${UID} != 0 ]; then
   alias f='firefox'
