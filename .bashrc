@@ -29,10 +29,10 @@ export LD_LIBRARY_PATH="${UL_LIB_HOME}:/usr/lib:/lib"
 # Generation complete.
 
 # Locale
-export LANG="en_US.UTF-8"
-export LC_ALL="en_US.UTF-8"
+export LANG="ru_RU.UTF-8"
+export LC_ALL="ru_RU.UTF-8"
 # Language
-export LANGUAGE="en_US:en"
+export LANGUAGE="ru_RU:en"
 
 # Default editor
 export EDITOR=vim;
@@ -70,31 +70,22 @@ export PS1
 # PS1 for console MySQL client
 export MYSQL_PS1
 
-#=== XDebug ============================================================================ {{{ ===
+#=== [XDebug] ========================================================================== {{{ ===
 
 #export XDEBUG_CONFIG="idekey=xdebug"
 
-#=== XDebug ============================================================================ }}} ===
+#=== [/XDebug] ========================================================================= }}} ===
 
-#=== GOLang ============================================================================ {{{ ===
+#=== [Flex] ============================================================================ {{{ ===
+export FLEX_HOME="${UL_LIB_HOME}/flex"
 
-#export GOROOT=$UL_LIB_HOME/go
-# set PATH so it includes GO bin if it exists
-#if [ -d "$GOROOT/bin" ] ; then
-#  PATH=$GOROOT/bin:$PATH
-#fi
-
-if [ -d "${WORKSPACE}/go" ] ; then
-  export GOPATH="${WORKSPACE}/go"
-
-  if [ -d "${GOPATH}/bin" ] ; then
-    export GOBIN="${GOPATH}/bin"
-    PATH="${GOBIN}:${PATH}"
-  fi
+# set PATH so it includes Adobe FLEX bin if it exists
+if [ -d "${FLEX_HOME}/bin" ] ; then
+  PATH="${FLEX_HOME}/bin:${PATH}"
 fi
-#=== GOLang ============================================================================ }}} ===
+#=== [/Flex] =========================================================================== }}} ===
 
-#=== Java ============================================================================== {{{ ===
+#=== [Java] ============================================================================ {{{ ===
 
 # --- JVM (JDK/JRE) ---
 JDK_HOME="${UL_LIB_HOME}/jdk"
@@ -126,18 +117,27 @@ export JDK_CLASSPATH
 export JRE_HOME
 export JRE_CLASSPATH
 export CLASSPATH
-#=== Java ============================================================================== }}} ===
+#=== [/Java] =========================================================================== }}} ===
 
-#=== Flex ============================================================================== {{{ ===
-export FLEX_HOME="${UL_LIB_HOME}/flex"
+#=== [Golang] ========================================================================== {{{ ===
 
-# set PATH so it includes Adobe FLEX bin if it exists
-if [ -d "${FLEX_HOME}/bin" ] ; then
-  PATH="${FLEX_HOME}/bin:${PATH}"
+export GOROOT="${UL_LIB_HOME}/go"
+# set PATH so it includes GO bin if it exists
+if [ -d "$GOROOT/bin" ] ; then
+  PATH="${GOROOT}/bin:${PATH}"
 fi
-#=== Flex ============================================================================== }}} ===
 
-#=== Path ============================================================================== {{{ ===
+if [ -d "${WORKSPACE}/go" ] ; then
+  export GOPATH="${WORKSPACE}/go"
+
+  if [ -d "${GOPATH}/bin" ] ; then
+    export GOBIN="${GOPATH}/bin"
+    PATH="${GOBIN}:${PATH}"
+  fi
+fi
+#=== [/Golang] ========================================================================= }}} ===
+
+#=== [Path] ============================================================================ {{{ ===
 
 # set PATH so it includes user's private bin if it exists
 if [ -d "${HOME}/bin" ] ; then
@@ -148,14 +148,14 @@ fi
 
 export PATH
 
-#=== Path ============================================================================== }}} ===
+#=== [/Path] =========================================================================== }}} ===
 
-#=== Bash Aliases ====================================================================== {{{ ===
+#=== [Aliases] ========================================================================= {{{ ===
 
 # include .bash_aliases
 if [ -f "${DIR}/.bash_aliases" ]; then
   . "${DIR}/.bash_aliases"
 fi
 
-#=== Bash Aliases ====================================================================== }}} ===
+#=== [/Aliases] ======================================================================== }}} ===
 
