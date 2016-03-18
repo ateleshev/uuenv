@@ -14,7 +14,7 @@ sudo dpkg-reconfigure locales
 ## Clone the project to home directory
 
 ```
-git clone https://github.com/ArtemTeleshev/uuenv.git ~/.uuenv
+git clone https://github.com/ateleshev/uuenv.git ~/.uuenv
 ```
 ## And execute
 
