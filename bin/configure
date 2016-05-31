@@ -4,9 +4,10 @@ NAME=".uuenv"
 
 if [ ! -x "$(which realpath)" ]; then
   echo "[${NAME}] The 'realpath' is not installed"
+  exit 1
 fi
 
-SCRIPT=$(realpath "${0}")
+SCRIPT=$(realpath "${BASH_SOURCE[0]}")
 DIR=$(dirname "$(dirname "${SCRIPT}")")
 NAME=$(basename "${DIR}")
 
@@ -15,6 +16,10 @@ if [ -f "${DIR}/lib/functions" ]; then
 else
   echo "[${NAME}] Cannot include: '${DIR}/lib/functions'"
   exit 1
+fi
+
+if [ ! -d "~/workspace" ]; then
+  mkdir "~/workspace"
 fi
 
 configure_uenv
