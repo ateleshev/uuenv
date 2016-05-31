@@ -41,14 +41,22 @@ export PAGER=less;
 ## Title for terminal (Gnome3) 
 export PROMPT_COMMAND='echo -ne "\033]0;$(hostname) | $(basename ${PWD})\007"' 
 
-## ==[ Socks server ]==
+## ==[ Socks server {{{ ]==
 #export SOCKS_SERVER="127.0.0.1:7080"
+## ==[ }}} ]==
 
-## ==[ Proxy ]==
-#export SOCKS_PROXY="socks5://${SOCKS_SERVER}"
-#export SOCKS5_PROXY="socks5://${SOCKS_SERVER}"
-#export HTTP_PROXY="socks5://${SOCKS_SERVER}"
-#export HTTPS_PROXY="socks5://${SOCKS_SERVER}"
+## ==[ Proxy {{{ ]==
+#export PROXY_TYPE="socks5"
+#export SOCKS_PROXY="${PROXY_TYPE}://${SOCKS_SERVER}"
+#export SOCKS5_PROXY="${PROXY_TYPE}://${SOCKS_SERVER}"
+#export HTTP_PROXY="${PROXY_TYPE}://${SOCKS_SERVER}"
+#export HTTPS_PROXY="${PROXY_TYPE}://${SOCKS_SERVER}"
+## ==[ }}} ]==
+
+## ==[ Proxy for GIT {{{ ]==
+## > git config --global http.proxy "${PROXY_TYPE}://${SOCKS_SERVER}"
+## > git config --global https.proxy "${PROXY_TYPE}://${SOCKS_SERVER}"
+## ==[ }}} ]==
 
 WORKSPACE_DIR="${HOME}"
 WORKSPACE_NAME="workspace"
