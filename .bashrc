@@ -42,20 +42,26 @@ export PAGER=less;
 export PROMPT_COMMAND='echo -ne "\033]0;$(hostname) | $(basename ${PWD})\007"' 
 
 ## ==[ Socks server {{{ ]==
-#export SOCKS_SERVER="127.0.0.1:7080"
+# export SOCKS_SERVER="127.0.0.1:7080"
 ## ==[ }}} ]==
 
 ## ==[ Proxy {{{ ]==
-#export PROXY_TYPE="socks5"
-#export SOCKS_PROXY="${PROXY_TYPE}://${SOCKS_SERVER}"
-#export SOCKS5_PROXY="${PROXY_TYPE}://${SOCKS_SERVER}"
-#export HTTP_PROXY="${PROXY_TYPE}://${SOCKS_SERVER}"
-#export HTTPS_PROXY="${PROXY_TYPE}://${SOCKS_SERVER}"
+# export PROXY_TYPE="socks5"
+# export SOCKS_PROXY="${PROXY_TYPE}://${SOCKS_SERVER}"
+# export SOCKS5_PROXY="${PROXY_TYPE}://${SOCKS_SERVER}"
+# export HTTP_PROXY="${PROXY_TYPE}://${SOCKS_SERVER}"
+# export HTTPS_PROXY="${PROXY_TYPE}://${SOCKS_SERVER}"
 ## ==[ }}} ]==
 
 ## ==[ Proxy for GIT {{{ ]==
 ## > git config --global http.proxy "${PROXY_TYPE}://${SOCKS_SERVER}"
 ## > git config --global https.proxy "${PROXY_TYPE}://${SOCKS_SERVER}"
+## ==[ }}} ]==
+
+## ==[ Unset Proxy and Socks {{{ ]==
+# unset SOCKS5_PROXY && unset SOCKS_PROXY && unset HTTPS_PROXY && unset HTTP_PROXY && unset PROXY_TYPE && unset SOCKS_SERVER
+#
+# env | grep "SOCKS\|PROXY"
 ## ==[ }}} ]==
 
 WORKSPACE_DIR="${HOME}"
