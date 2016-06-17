@@ -41,25 +41,42 @@ export PAGER=less;
 ## Title for terminal (Gnome3) 
 export PROMPT_COMMAND='echo -ne "\033]0;$(hostname) | $(basename ${PWD})\007"' 
 
-## ==[ Socks server {{{ ]==
-# export SOCKS_SERVER="127.0.0.1:7080"
-## ==[ }}} ]==
-
 ## ==[ Proxy {{{ ]==
 # export PROXY_TYPE="socks5"
-# export SOCKS_PROXY="${PROXY_TYPE}://${SOCKS_SERVER}"
-# export SOCKS5_PROXY="${PROXY_TYPE}://${SOCKS_SERVER}"
-# export HTTP_PROXY="${PROXY_TYPE}://${SOCKS_SERVER}"
-# export HTTPS_PROXY="${PROXY_TYPE}://${SOCKS_SERVER}"
+# export PROXY_ADDR="127.0.0.1:7080"
+# export PROXY="${PROXY_TYPE}://${PROXY_ADDR}"
+#
+# export HTTP_PROXY="${PROXY}"
+# export HTTPS_PROXY="${PROXY}"
+#
+# export SOCKS_SERVER="${PROXY_ADDR}"
+#
+# export SOCKS_PROXY="${PROXY}"
+# export SOCKS5_PROXY="${PROXY}"
 ## ==[ }}} ]==
 
 ## ==[ Proxy for GIT {{{ ]==
 ## > git config --global http.proxy "${PROXY_TYPE}://${SOCKS_SERVER}"
 ## > git config --global https.proxy "${PROXY_TYPE}://${SOCKS_SERVER}"
+##
+## > git config --global --unset http.proxy
+## > git config --global --unset https.proxy
+##
+## > git config --global --remove-section http
+## > git config --global --remove-section https
 ## ==[ }}} ]==
 
 ## ==[ Unset Proxy and Socks {{{ ]==
-# unset SOCKS5_PROXY && unset SOCKS_PROXY && unset HTTPS_PROXY && unset HTTP_PROXY && unset PROXY_TYPE && unset SOCKS_SERVER
+# unset HTTP_PROXY
+# unset HTTPS_PROXY
+#
+# unset SOCKS5_PROXY
+# unset SOCKS_PROXY
+# unset SOCKS_SERVER
+#
+# unset PROXY
+# unset PROXY_TYPE
+# unset PROXY_ADDR
 #
 # env | grep "SOCKS\|PROXY"
 ## ==[ }}} ]==
