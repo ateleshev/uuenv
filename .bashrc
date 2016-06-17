@@ -167,7 +167,7 @@ if [ -d "${HOME}/bin" ] ; then
   PATH="${HOME}/bin:${PATH}"
 fi
 
-#PATH="./bin:$PATH"
+PATH="./bin:$PATH"
 
 export PATH
 

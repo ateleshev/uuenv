@@ -1,0 +1,68 @@
+#!/usr/bin/env bash
+
+DIR=$(dirname ${BASH_SOURCE[0]})
+NAME=$(basename ${BASH_SOURCE[0]})
+ACTION=${1,,}
+
+case "${ACTION}" in
+  start)
+      export PROXY_TYPE=$(head -n 1 "${DIR}/../etc/${NAME}.type")
+      export PROXY_ADDR=$(head -n 1 "${DIR}/../etc/${NAME}.addr")
+
+      export PROXY="${PROXY_TYPE}://${PROXY_ADDR}"
+
+      # --[ SOCKS/SOCKS5 ]--
+      case "${PROXY_TYPE}" in
+        socks|socks5)
+          export SOCKS_SERVER="${PROXY_ADDR}"
+          export SOCKS_PROXY="${PROXY}"
+        ;;
+      esac
+
+      # --[ SOCKS5 ]--
+      case "${PROXY_TYPE}" in
+        socks5)
+          export SOCKS5_PROXY="${PROXY}"
+        ;;
+      esac
+
+      # --[ HTTP/HTTPS ]--
+      export HTTP_PROXY="${PROXY}"
+      export HTTPS_PROXY="${PROXY}"
+
+      git config --global http.proxy "${PROXY}"
+      git config --global https.proxy "${PROXY}"
+
+      echo "${ACTION^}: ${NAME} (${PROXY}) ... [ OK ]"
+    ;;
+  stop)
+      unset HTTP_PROXY
+      unset HTTPS_PROXY
+
+      unset SOCKS_PROXY
+      unset SOCKS5_PROXY
+
+      unset SOCKS_SERVER
+
+      unset PROXY
+      unset PROXY_TYPE
+      unset PROXY_ADDR
+
+      git config --global --unset http.proxy
+      git config --global --unset https.proxy
+
+      # Remove section
+      # git config --global --remove-section http
+      # git config --global --remove-section https
+
+      echo "${ACTION^}: ${NAME} ... [ OK ]"
+    ;;
+  env)
+      echo "Environment: ${NAME}"
+      env | grep "SOCKS\|PROXY"
+    ;;
+  *)
+      echo "Usage: ${NAME} {start|stop|env}"
+    ;;
+esac
+
