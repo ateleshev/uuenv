@@ -56,14 +56,14 @@ export PROMPT_COMMAND='echo -ne "\033]0;$(hostname) | $(basename ${PWD})\007"'
 ## ==[ }}} ]==
 
 ## ==[ Proxy for GIT {{{ ]==
-## > git config --global http.proxy "${PROXY_TYPE}://${SOCKS_SERVER}"
-## > git config --global https.proxy "${PROXY_TYPE}://${SOCKS_SERVER}"
-##
-## > git config --global --unset http.proxy
-## > git config --global --unset https.proxy
-##
-## > git config --global --remove-section http
-## > git config --global --remove-section https
+# git config --global http.proxy "${PROXY}"
+# git config --global https.proxy "${PROXY}"
+#
+# git config --global --unset http.proxy
+# git config --global --unset https.proxy
+#
+# git config --global --remove-section http
+# git config --global --remove-section https
 ## ==[ }}} ]==
 
 ## ==[ Unset Proxy and Socks {{{ ]==
