@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+#
+# Server: install base packages
+
+sudo apt-get install --reinstall --purge \
+  make make-doc cmake cmake-doc \
+  gcc cpp g++ binutils autoconf \
+  less sed grep realpath psmisc \
+  mc htop iftop sockstat net-tools \
+  p7zip-full p7zip-rar bzip2 bzip2-doc unzip \
+  screen vim vim-doc \
+  ntp ntpdate tzdata
+
