@@ -59,8 +59,8 @@ case "${ACTION}" in
       git config --global --unset https.proxy
 
       # Remove section
-      # git config --global --remove-section http
-      # git config --global --remove-section https
+      git config --global --remove-section http
+      git config --global --remove-section https
 
       echo "${ACTION^}: ${NAME} ... [ OK ]"
     ;;
