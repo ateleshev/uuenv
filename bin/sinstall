@@ -2,6 +2,16 @@
 #
 # Server: install base packages
 
+## Update of source list
+sudo apt-get update
+
+## Upgrade of installed packages
+sudo apt-get upgrade
+
+## Distribution upgrade
+sudo apt-get dist-upgrade
+
+## Installation of base server packages
 sudo apt-get install --reinstall --purge \
   make make-doc cmake cmake-doc \
   gcc cpp g++ binutils autoconf \
