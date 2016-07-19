@@ -7,7 +7,7 @@ sudo apt-get install --reinstall --purge \
   gcc cpp g++ binutils autoconf \
   less sed grep realpath psmisc \
   mc htop iftop sockstat net-tools \
-  p7zip-full p7zip-rar bzip2 bzip2-doc unzip \
+  p7zip p7zip-full p7zip-rar bzip2 bzip2-doc unzip \
   screen vim vim-doc \
   ntp ntpdate tzdata
 
