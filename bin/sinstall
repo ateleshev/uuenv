@@ -17,7 +17,11 @@ sudo apt-get install --reinstall --purge \
   gcc cpp g++ binutils autoconf \
   less sed grep realpath psmisc \
   mc htop iftop sockstat net-tools \
-  p7zip p7zip-full p7zip-rar bzip2 bzip2-doc unzip \
+  tar zip unzip \
+  p7zip p7zip-full p7zip-rar \
+  bzip2 bzip2-doc \
   screen vim vim-doc \
+  git git-man \
+  python python3 \
   ntp ntpdate tzdata
 
