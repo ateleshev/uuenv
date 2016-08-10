@@ -23,5 +23,6 @@ sudo apt-get install --reinstall --purge \
   screen vim vim-doc \
   git git-man \
   python python3 \
+  libxml2-utils \
   ntp ntpdate tzdata
 
