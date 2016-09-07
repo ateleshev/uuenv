@@ -79,6 +79,35 @@ function! JsonFmt()
   :silent 1,$!json_pp -f json -json_opt pretty,utf8,allow_bignum 2>/dev/null
 endfunction
 
+"function! Count( word )
+"  redir => cnt
+"  silent exe '%s/' . a:word . '//gn'
+"  redir END
+"
+"  let res = strpart(cnt, 0, stridx(cnt, ' '))
+"  return res
+"endfunction
+
+function! JsonCompact()
+  retab
+  :silent! %s/\n//g
+  :silent! %s/\r//g
+  :silent! %s/{\s\+"/{"/g
+  :silent! %s/":\s\+"/":"/g
+  :silent! %s/"\s\+:"/":"/g
+  :silent! %s/":\s\+{/":{/g
+  :silent! %s/":\s\+\[/":\[/g
+  :silent! %s/":\s\+\(\d\+\)/":\1/g
+  :silent! %s/",\s\+"/","/g
+  :silent! %s/\(\d\+\),\s\+"/\1,"/g
+  :silent! %s/"\s\+}/"}/g
+  :silent! %s/"\s\+\]/"\]/g
+  :silent! %s/},\s\+"/},"/g
+  :silent! %s/\(\d\+\)\s\+}/\1}/g
+  :silent! %s/}\s\+}/}}/g
+  :silent! %s/}\s\+}/}}/g
+endfunction
+
 " :call GoFmt() - for formatting Go
 function! GoFmt()
   :execute "!gofmt -w %"
