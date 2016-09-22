@@ -8,7 +8,7 @@ NAME=$(basename $SCRIPT)
 ACTION=$1
 
 case "$TERM" in
-  xterm*|rxvt*) color_prompt=yes ;;
+  xterm*|rxvt*|screen*) color_prompt=yes ;;
 esac
 
 function render_title() { # {{{
