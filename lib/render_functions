@@ -1,0 +1,63 @@
+#!/usr/bin/env bash
+
+case "$TERM" in
+  xterm*|rxvt*|screen*) color_prompt=yes ;;
+esac
+
+function render_title() { # {{{
+  render_newline
+  if [ "$color_prompt" = yes ]; then
+    echo -e "==[ \e[1m${1}\e[22m ]=="
+  else
+    echo "==[ ${1} ]=="
+  fi
+  render_newline
+} # }}}
+
+function render_subtitle() { # {{{
+  render_newline
+  if [ "$color_prompt" = yes ]; then
+    echo -e "--[ \e[90m${1}\e[39m ]--"
+  else
+    echo "--[ ${1} ]--"
+  fi
+} # }}}
+
+function render_comment() { # {{{
+  if [ "$color_prompt" = yes ]; then
+    echo -e "\e[36m// ${1}\e[39m"
+  else
+    echo "// ${1}"
+  fi
+} # }}}
+
+function render_warning() { # {{{
+  if [ "$color_prompt" = yes ]; then
+    echo -e "\e[91m${1}\e[39m"
+  else
+    echo "${1}"
+  fi
+} # }}}
+
+##
+# Execute: render_link "%title%" "%url%"
+##
+function render_link() { # {{{
+  if [ "$color_prompt" = yes ]; then
+    echo -e "${1}: \e[96m${2}\e[39m"
+  else
+    echo "${1}: ${2}"
+  fi
+} # }}}
+
+function render_command() { # {{{
+  if [ "$color_prompt" = yes ]; then
+    echo -e "\e[22m${1}"
+  else
+    echo "${1}"
+  fi
+} # }}}
+
+function render_newline() { # {{{
+  echo "" 
+} # }}}

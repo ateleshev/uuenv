@@ -1,73 +1,41 @@
 #!/usr/bin/env bash
 
-SCRIPT=$(realpath $0)
+NAME="go-help"
 
-DIR=$(dirname $SCRIPT)
-NAME=$(basename $SCRIPT)
+if [ ! -x "$(which realpath)" ]; then
+  echo "[${NAME}] The 'realpath' is not installed"
+  exit 1
+fi
 
-ACTION=$1
+ACTION=${1,,}
+SCRIPT=$(realpath "${BASH_SOURCE[0]}")
+NAME=$(basename ${SCRIPT})
+DIR=$(dirname "$(dirname "${SCRIPT}")")
 
-case "$TERM" in
-  xterm*|rxvt*|screen*) color_prompt=yes ;;
-esac
+if [ -f "${DIR}/lib/render_functions" ]; then
+  . "${DIR}/lib/render_functions"
+else
+  echo "[${NAME}] Cannot include: '${DIR}/lib/render_functions'"
+  exit 1
+fi
 
-function render_title() { # {{{
-  render_newline
-  if [ "$color_prompt" = yes ]; then
-    echo -e "==[ \e[1m${1}\e[49m\e[22m ]=="
-  else
-    echo "==[ ${1} ]=="
-  fi
-  render_newline
-} # }}}
-
-function render_subtitle() { # {{{
-  render_newline
-  if [ "$color_prompt" = yes ]; then
-    echo -e "--[ \e[90m${1}\e[39m ]--"
-  else
-    echo "--[ ${1} ]--"
-  fi
-} # }}}
-
-function render_comment() { # {{{
-  if [ "$color_prompt" = yes ]; then
-    echo -e "\e[36m// ${1}\e[39m"
-  else
-    echo "// ${1}"
-  fi
-} # }}}
-
-function render_command() { # {{{
-  if [ "$color_prompt" = yes ]; then
-    echo -e "\e[22m${1}"
-  else
-    echo "${1}"
-  fi
-} # }}}
-
-function render_newline() { # {{{
-  echo "" 
-} # }}}
-
-function show_help() { # {{{
-  echo "Usage: $NAME {test|cover|bench|pprof}"
-} # }}}
-
-function show_test() { # {{{
-  render_title "Tests"
-  render_comment "Run all tests"
-  render_command "go test -cover -v"
-  render_comment "Run one test"
-  render_command "go test -cover -v -run=%name%"
-  render_comment "Run two tests"
-  render_command "go test -cover -v -run=%name_1%\|%name_2%"
-  render_comment "Run part of tests"
-  render_command "go test -cover -v -run=%regexp%"
+function action_test() { # {{{
+  render_title    "Tests"
+  render_comment  "Run all tests"
+  render_command  "go test -race -cover -v"
+  render_comment  "Run one test"
+  render_command  "go test -race -cover -v -run=%name%"
+  render_comment  "Run two tests"
+  render_command  "go test -race -cover -v -run=%name_1%\|%name_2%"
+  render_comment  "Run part of tests"
+  render_command  "go test -race -cover -v -run=%regexp%"
+  render_subtitle "Conclusions"
+  render_warning  "What are you waiting for? Run 'go test -race' on your code today!"
+  render_link     "Details" "https://blog.golang.org/race-detector"
   render_newline
 } # }}}
 
-function show_cover() { # {{{
+function action_cover() { # {{{
   render_title "Coverage"
   render_comment "Given a coverage profile produced by 'go test'"
   render_command "go test -coverprofile=cover.out"
@@ -80,7 +48,7 @@ function show_cover() { # {{{
   render_newline
 } # }}}
 
-function show_bench() { # {{{
+function action_bench() { # {{{
   render_title "Benchmarks"
   render_comment "Run all benchmarks"
   render_command "go test -v -run=^$ -benchmem -bench=."
@@ -107,7 +75,7 @@ function show_bench() { # {{{
   render_newline
 } # }}}
 
-function show_pprof() { # {{{
+function action_pprof() { # {{{
   render_title "Package profiling"
   render_comment "Usage"
   render_command "go tool pprof [options] [binary] <profile source> ..."
@@ -124,10 +92,14 @@ function show_pprof() { # {{{
   render_newline
 } # }}}
 
-case "$ACTION" in
-  test)   show_test  ;;
-  cover)  show_cover ;;
-  bench)  show_bench ;;
-  pprof)  show_pprof ;;
-  *)      show_help  ;;
+function action_help() { # {{{
+  echo "Usage: ${NAME} {test|cover|bench|pprof}"
+} # }}}
+
+case "${ACTION}" in
+  test)   action_test  ;;
+  cover)  action_cover ;;
+  bench)  action_bench ;;
+  pprof)  action_pprof ;;
+  *)      action_help  ;;
 esac
