@@ -92,14 +92,114 @@ function action_pprof() { # {{{
   render_newline
 } # }}}
 
+# --[ code ]--
+
+function action_code_recover() { # {{{
+  render_code "// Catch panic and convert in to error
+package main
+
+import \"fmt\"
+
+func main() {
+  var err error
+  err = f(1)
+  fmt.Println(\"f(1) - done: error =\", err)
+  err = f(0)
+  fmt.Println(\"f(0) - done: error =\", err)
+}
+
+func f(i int) (err error) {
+  defer func() {
+    if r := recover(); r != nil {
+      err = fmt.Errorf(\"panic: %v\", r)
+    }
+  }()
+  g(i)
+  return
+}
+
+func g(i int) {
+  if i == 0 {
+    panic(\"i - cannot be zero\")
+  }
+}"
+} # }}}
+
+function action_code_timeout() { # {{{
+  render_code "// Timeout: chan + select + sync.WaitGroup + (time.Timer vs time.Sleep)
+package main
+
+import \"fmt\"
+import \"time\"
+import \"sync\"
+
+func main() {
+  f(1, 2, 1)
+  f(2, 1, 1)
+}
+
+func f(i, j, k int) {
+  var n int
+  var wg sync.WaitGroup
+  done := make(chan int, 3)
+  defer close(done)
+  wg.Add(2)
+
+  go func() { // Timer
+    defer wg.Done()
+    timer := time.NewTimer(time.Second * time.Duration(i))
+    <-timer.C
+    fmt.Println(\"Timer finished:\", i)
+    done <- i
+  }() // EndTime
+  go func() { // Sleep
+    defer wg.Done()
+    time.Sleep(time.Second * time.Duration(j))
+    fmt.Println(\"Sleep finished:\", j)
+    done <- j
+  }() // EndSleep
+  go func() { // Wait
+    wg.Wait()
+    fmt.Println(\"WaitGroup finished:\", k)
+    done <- k
+  }() // EndWait
+
+  for {
+    select {
+    case v := <-done:
+      n += v
+      if n == i+j+k {
+        fmt.Println(\"f(i, j, k int) finished:\", n)
+        return
+      }
+    }
+  }
+}"
+} # }}}
+
+function action_code_help() { # {{{
+  echo "Usage: ${NAME} ${ACTION} {recover|timeout}"
+} # }}}
+
+function action_code() { # {{{
+  case "${1}" in
+    recover)   action_code_recover  ;;
+    timeout)   action_code_timeout  ;;
+    *)         action_code_help     ;;
+  esac
+} # }}}
+
+# --[ /code ]--
+
 function action_help() { # {{{
-  echo "Usage: ${NAME} {test|cover|bench|pprof}"
+  echo "Usage: ${NAME} {test|cover|bench|pprof|code}"
 } # }}}
 
 case "${ACTION}" in
-  test)   action_test  ;;
-  cover)  action_cover ;;
-  bench)  action_bench ;;
-  pprof)  action_pprof ;;
-  *)      action_help  ;;
+  test)   action_test      ;;
+  cover)  action_cover     ;;
+  bench)  action_bench     ;;
+  pprof)  action_pprof     ;;
+  code)   action_code ${2} ;;
+  *)      action_help      ;;
 esac

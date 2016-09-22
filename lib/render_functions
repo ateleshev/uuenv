@@ -50,6 +50,10 @@ function render_link() { # {{{
   fi
 } # }}}
 
+function render_code() { # {{{
+  echo "${1}"
+} # }}}
+
 function render_command() { # {{{
   if [ "$color_prompt" = yes ]; then
     echo -e "\e[22m${1}"
