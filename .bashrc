@@ -29,10 +29,10 @@ export LD_LIBRARY_PATH="${UL_LIB_HOME}:/usr/lib:/lib"
 ## Generation complete.
 
 ## Locale
-export LANG="en_US.UTF-8"
-export LC_ALL="en_US.UTF-8"
+#export LANG="ru_RU.UTF-8"
+#export LC_ALL="ru_RU.UTF-8"
 ## Language
-export LANGUAGE="en_US:en"
+#export LANGUAGE="ru_RU:ru"
 
 ## Default editor
 export EDITOR=vim;
