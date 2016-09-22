@@ -1,0 +1,133 @@
+#!/usr/bin/env bash
+
+SCRIPT=$(realpath $0)
+
+DIR=$(dirname $SCRIPT)
+NAME=$(basename $SCRIPT)
+
+ACTION=$1
+
+case "$TERM" in
+  xterm*|rxvt*) color_prompt=yes ;;
+esac
+
+function render_title() { # {{{
+  render_newline
+  if [ "$color_prompt" = yes ]; then
+    echo -e "==[ \e[1m${1}\e[49m\e[22m ]=="
+  else
+    echo "==[ ${1} ]=="
+  fi
+  render_newline
+} # }}}
+
+function render_subtitle() { # {{{
+  render_newline
+  if [ "$color_prompt" = yes ]; then
+    echo -e "--[ \e[90m${1}\e[39m ]--"
+  else
+    echo "--[ ${1} ]--"
+  fi
+} # }}}
+
+function render_comment() { # {{{
+  if [ "$color_prompt" = yes ]; then
+    echo -e "\e[36m// ${1}\e[39m"
+  else
+    echo "// ${1}"
+  fi
+} # }}}
+
+function render_command() { # {{{
+  if [ "$color_prompt" = yes ]; then
+    echo -e "\e[22m${1}"
+  else
+    echo "${1}"
+  fi
+} # }}}
+
+function render_newline() { # {{{
+  echo "" 
+} # }}}
+
+function show_help() { # {{{
+  echo "Usage: $NAME {test|cover|bench|pprof}"
+} # }}}
+
+function show_test() { # {{{
+  render_title "Tests"
+  render_comment "Run all tests"
+  render_command "go test -cover -v"
+  render_comment "Run one test"
+  render_command "go test -cover -v -run=%name%"
+  render_comment "Run two tests"
+  render_command "go test -cover -v -run=%name_1%\|%name_2%"
+  render_comment "Run part of tests"
+  render_command "go test -cover -v -run=%regexp%"
+  render_newline
+} # }}}
+
+function show_cover() { # {{{
+  render_title "Coverage"
+  render_comment "Given a coverage profile produced by 'go test'"
+  render_command "go test -coverprofile=cover.out"
+  render_subtitle "CLI"
+  render_comment "Display coverage percentages to stdout for each function"
+  render_command "go tool cover -func=cover.out"
+  render_subtitle "HTML"
+  render_comment "Open a web browser displaying annotated source code"
+  render_command "go tool cover -html=cover.out"
+  render_newline
+} # }}}
+
+function show_bench() { # {{{
+  render_title "Benchmarks"
+  render_comment "Run all benchmarks"
+  render_command "go test -v -run=^$ -benchmem -bench=."
+  render_comment "Run one benchmark"
+  render_command "go test -v -run=^$ -benchmem -bench=%name%"
+  render_comment "Run two benchmarks"
+  render_command "go test -v -run=^$ -benchmem -bench=%name_1%\|%name_2%"
+  render_comment "Run part of benchmarks"
+  render_command "go test -v -run=^$ -benchmem -bench=%regexp%"
+  render_subtitle "CPU"
+  render_comment "Run all benchmarks with CPU profiling"
+  render_command "go test -v -run=^$ -benchmem -benchtime=3s -bench=. -cpuprofile=cpu.1.out | tee cpu.1.profile"
+  render_comment "Make improvements to optimize of use CPU ..."
+  render_command "go test -v -run=^$ -benchmem -benchtime=3s -bench=. -cpuprofile=cpu.2.out | tee cpu.2.profile"
+  render_comment "Compare CPU benchmarks"
+  render_command "benchcmp cpu.1.profile cpu.2.profile"
+  render_subtitle "Memory"
+  render_comment "Run all benchmarks with memory profiling"
+  render_command "go test -v -run=^$ -benchmem -benchtime=3s -bench=. -memprofile=mem.1.out | tee mem.1.profile"
+  render_comment "Make improvements to optimize of use memory ..."
+  render_command "go test -v -run=^$ -benchmem -benchtime=3s -bench=. -memprofile=mem.2.out | tee mem.2.profile"
+  render_comment "Compare memory benchmarks"
+  render_command "benchcmp mem.1.profile mem.2.profile"
+  render_newline
+} # }}}
+
+function show_pprof() { # {{{
+  render_title "Package profiling"
+  render_comment "Usage"
+  render_command "go tool pprof [options] [binary] <profile source> ..."
+  render_subtitle "CPU"
+  render_comment "Analyze CPU results"
+  render_command "go tool pprof %package%.test cpu.1.out"
+  render_comment "Outputs a graph in PDF format"
+  render_command "go tool pprof -pdf %package%.test cpu.1.out > cpu.1.pdf"
+  render_subtitle "Memory"
+  render_comment "Analyze memory results with display allocated memory size"
+  render_command "go tool pprof --alloc_space %package%.test mem.1.out"
+  render_comment "Analyze memory results with display allocated object counts"
+  render_command "go tool pprof --alloc_objects %package%.test mem.1.out"
+  render_newline
+} # }}}
+
+case "$ACTION" in
+  test)   show_test  ;;
+  cover)  show_cover ;;
+  bench)  show_bench ;;
+  pprof)  show_pprof ;;
+  *)      show_help  ;;
+esac
