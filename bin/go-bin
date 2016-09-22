@@ -1,0 +1,139 @@
+#!/usr/bin/env bash
+
+NAME="go-bin"
+PKG="github.com/ateleshev/go-bin"
+
+if [ ! -x "$(which realpath)" ]; then
+  echo "[${NAME}] The 'realpath' is not installed"
+  exit 1
+fi
+
+SCRIPT=$(realpath "${BASH_SOURCE[0]}")
+DIR=$(dirname "$(dirname "${SCRIPT}")")
+
+if [ -f "${DIR}/lib/render_functions" ]; then
+  . "${DIR}/lib/render_functions"
+else
+  echo "[${NAME}] Cannot include: '${DIR}/lib/render_functions'"
+  exit 1
+fi
+
+ACTION=$1
+OPERATION=$2
+
+# --[ New ]--
+
+function action_new_cmd() { # {{{
+  render_code "// ${NAME}: ${PKG}
+package main
+
+import (
+)
+
+func init() { // {{{
+} // }}}
+
+func main() { // {{{
+} // }}}
+"
+} # }}}
+
+function action_new_cmp() { # {{{
+  CMP_PKG="${1}"
+  CMP_NAME="${2}"
+
+  if [[ "${3}" != "" ]]; then
+    CMP_TYPE=${3}
+  else
+    CMP_TYPE="struct"
+  fi
+
+  render_code "// ${NAME}: ${PKG}
+package ${CMP_PKG}
+
+import (
+)
+
+func New${CMP_NAME}() *${CMP_NAME} { // {{{
+} // }}}
+
+type ${CMP_NAME} ${CMP_TYPE} {
+}
+
+func (this *${CMP_NAME}) Run() { // {{{
+} // }}}
+"
+} # }}}
+
+function action_new_test() { # {{{
+  CMP_PKG="${1}"
+  CMP_NAME="${2}"
+
+  render_code "// ${NAME}: ${PKG}
+package ${CMP_PKG}_test
+
+import (
+  \"testing\"
+)
+
+var testCasesFor${CMP_NAME} = map[string]string{
+  \"name\": \"value\",
+}
+
+func executeTest${CMP_NAME}(t testing.TB) { // {{{
+  for k, v := range testCasesFor${CMP_NAME} {
+    if k == v {
+      t.Errorf(\"Incorrect value '%s' for key '%s'\", v, k)
+    }
+  }
+} // }}}
+
+// ==[ Tests ]==
+
+func Test${CMP_NAME}(t *testing.T) { // {{{
+  executeTest${CMP_NAME}(t)
+} // }}}
+
+// ==[ Benchmarks ]==
+
+func Benchmark${CMP_NAME}(b *testing.B) { // {{{
+  for i := 0; i < b.N; i++ {
+    executeTest${CMP_NAME}(b)
+  }
+} // }}}
+
+"
+} # }}}
+
+function action_new_help() { # {{{
+  render_title "New"
+  render_comment "Create command"
+  render_command "${NAME} ${ACTION} cmd"
+  render_comment "Create component"
+  render_command "${NAME} ${ACTION} cmp <package> <name> <type>"
+  render_comment "Create test"
+  render_command "${NAME} ${ACTION} test <package> <name>"
+  render_subtitle "Usage"
+  render_command "${NAME} ${ACTION} {cmd|cmp|test} ..."
+  render_newline
+} # }}}
+
+# --[ /New ]--
+
+function action_new() { # {{{
+  case "${OPERATION}" in
+    cmd)    action_new_cmd                  ;;
+    cmp)    action_new_cmp  ${1} ${2} ${3}  ;;
+    test)   action_new_test ${1} ${2}       ;;
+    *)      action_new_help                 ;;
+  esac
+} # }}}
+
+function action_help() { # {{{
+  echo "Usage: ${NAME} {new}"
+} # }}}
+
+case "${ACTION}" in
+  new)    action_new  ${3} ${4} ${5} ;;
+  *)      action_help  ;;
+esac
