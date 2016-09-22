@@ -1,3 +1,5 @@
+#!/bin/usr/env bash
+
 # Bash functions
 
 function show_ok() { # {{{

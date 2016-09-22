@@ -18,8 +18,8 @@ else
   exit 1
 fi
 
-if [ ! -d "~/workspace" ]; then
-  mkdir "~/workspace"
+if [ ! -d "${HOME}/workspace" ]; then
+  mkdir "${HOME}/workspace"
 fi
 
 configure_uenv
