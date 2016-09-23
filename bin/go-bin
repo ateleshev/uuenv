@@ -38,7 +38,7 @@ func main() { // {{{
 "
 } # }}}
 
-function action_new_cmp() { # {{{
+function _prepare_cmp() { # {{{
   CMP_PKG="${1}"
   CMP_NAME="${2}"
 
@@ -48,19 +48,79 @@ function action_new_cmp() { # {{{
     CMP_TYPE="struct"
   fi
 
+  case "${CMP_TYPE,,}" in
+    interface)
+      CMP_INSTANCE="${CMP_NAME}{}"
+      CMP_INSTANCE_TYPE="${CMP_NAME}"
+      ;;
+    struct)
+      CMP_INSTANCE="&${CMP_NAME}{}"
+      CMP_INSTANCE_TYPE="*${CMP_NAME}"
+      ;;
+    *)
+      echo "[Error] Unsupported type: ${CMP_TYPE}" 
+      exit 1
+      ;;
+  esac
+
+  POOL_NAME="${CMP_NAME,}Pool"
+  POOL_GET="${POOL_NAME}Get"
+  POOL_PUT="${POOL_NAME}Put"
+} # }}}
+
+function action_new_cmp() { # {{{
+  _prepare_cmp ${1} ${2} ${3}
+
   render_code "// ${NAME}: ${PKG}
 package ${CMP_PKG}
 
 import (
 )
 
-func New${CMP_NAME}() *${CMP_NAME} { // {{{
+func New${CMP_NAME}() ${CMP_INSTANCE_TYPE} { // {{{
+  // return ${POOL_GET}()
+  return ${CMP_INSTANCE}
 } // }}}
 
 type ${CMP_NAME} ${CMP_TYPE} {
 }
 
-func (this *${CMP_NAME}) Run() { // {{{
+func (this ${CMP_INSTANCE_TYPE}) Reset() { // {{{
+} // }}}
+
+func (this ${CMP_INSTANCE_TYPE}) Release() { // {{{
+  // ${POOL_PUT}(this)
+} // }}}
+"
+} # }}}
+
+function action_new_pool() { # {{{
+  _prepare_cmp ${1} ${2} ${3}
+
+  render_code "// ${NAME}: ${PKG}
+package ${CMP_PKG}
+
+import (
+  \"sync\"
+)
+
+var ${POOL_NAME} = sync.Pool{ // {{{
+  New: func() interface{} {
+    return ${CMP_INSTANCE}
+  },
+} // }}}
+
+func ${POOL_GET}() ${CMP_INSTANCE_TYPE} { // {{{
+  if instance := ${POOL_NAME}.Get(); instance != nil {
+    return instance.(${CMP_INSTANCE_TYPE})
+  }
+
+  return ${POOL_NAME}.New().(${CMP_INSTANCE_TYPE})
+} // }}}
+
+func ${POOL_PUT}(instance ${CMP_INSTANCE_TYPE}) { // {{{
+  instance.Reset()
+  ${POOL_NAME}.Put(instance)
 } // }}}
 "
 } # }}}
@@ -110,11 +170,13 @@ function action_new_help() { # {{{
   render_comment "Create command"
   render_command "${NAME} ${ACTION} cmd"
   render_comment "Create component"
-  render_command "${NAME} ${ACTION} cmp <package> <name> <type>"
-  render_comment "Create test"
-  render_command "${NAME} ${ACTION} test <package> <name>"
+  render_command "${NAME} ${ACTION} cmp  <package> <name> [<type> = struct]"
+  render_comment "Create pool for component"
+  render_command "${NAME} ${ACTION} pool <package> <name> [<type> = struct]"
+  render_comment "Create test for component"
+  render_command "${NAME} ${ACTION} test <package> <name> [<type> = struct]"
   render_subtitle "Usage"
-  render_command "${NAME} ${ACTION} {cmd|cmp|test} ..."
+  render_command "${NAME} ${ACTION} {cmd|cmp|pool|test} ..."
   render_newline
 } # }}}
 
@@ -124,7 +186,8 @@ function action_new() { # {{{
   case "${OPERATION}" in
     cmd)    action_new_cmd                  ;;
     cmp)    action_new_cmp  ${1} ${2} ${3}  ;;
-    test)   action_new_test ${1} ${2}       ;;
+    pool)   action_new_pool ${1} ${2} ${3}  ;;
+    test)   action_new_test ${1} ${2} ${3}  ;;
     *)      action_new_help                 ;;
   esac
 } # }}}
