@@ -22,6 +22,15 @@ if [ ! -d "${HOME}/workspace" ]; then
   mkdir "${HOME}/workspace"
 fi
 
+# GO
+if [ ! -d "${HOME}/workspace/go/bin" ]; then
+  mkdir "${HOME}/workspace/go/bin"
+fi
+
+if [ ! -d "${HOME}/workspace/go/src" ]; then
+  mkdir "${HOME}/workspace/go/src"
+fi
+
 configure_uenv
 configure_bash
 configure_git

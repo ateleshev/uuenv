@@ -19,16 +19,17 @@
 #------------------------------------------------------------------------ }}} ---#
 
 [alias] # http://githowto.com/aliases ----------------------------------- {{{ ---#
-  co = checkout
-  ci = commit
-  st = status
-  br = branch
-  fp = format-patch --stdout -1
-  last = log -1 HEAD
+  co    = checkout
+  ci    = commit
+  st    = status
+  br    = branch
+  brv   = branch -avv
+  fp    = format-patch --stdout -1
+  last  = log -1 HEAD
+  hist  = log --pretty=format:\"%h | %ad | %s%d [%an]\" --graph --date=short
+  type  = cat-file -t
+  dump  = cat-file -p
   patch = format-patch --no-prefix --stdout -1
-  hist = log --pretty=format:\"%h | %ad | %s%d [%an]\" --graph --date=short
-  type = cat-file -t
-  dump = cat-file -p
 #------------------------------------------------------------------------ }}} ---#
 
 [push] # http://githowto.com/ ------------------------------------------- {{{ ---#
