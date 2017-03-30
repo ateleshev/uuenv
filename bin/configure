@@ -24,11 +24,11 @@ fi
 
 # GO
 if [ ! -d "${HOME}/workspace/go/bin" ]; then
-  mkdir "${HOME}/workspace/go/bin"
+  mkdir -p "${HOME}/workspace/go/bin"
 fi
 
 if [ ! -d "${HOME}/workspace/go/src" ]; then
-  mkdir "${HOME}/workspace/go/src"
+  mkdir -p "${HOME}/workspace/go/src"
 fi
 
 configure_uenv
