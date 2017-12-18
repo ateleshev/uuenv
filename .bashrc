@@ -10,6 +10,9 @@
 ##===============================================================================================
 DIR="$(dirname ${BASH_SOURCE[0]})"
 
+## Default binary directory
+export BINDIR="/usr/local/bin"
+
 ## [U]ser [L]ocal [LIB]rary [HOME] directory
 export UL_LIB_HOME="/usr/local/lib"
 
