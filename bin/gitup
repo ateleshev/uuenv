@@ -1,0 +1,17 @@
+#!/bin/sh
+
+CURRENT_DIR=`pwd`
+
+git_update() {
+  echo "Update: ${1}"
+  cd ${1}
+  git fetch -p
+  git pull
+  git br
+}
+
+for DIR in ${CURRENT_DIR}/* ; do
+  if [ -d "${DIR}/.git" ]; then
+    git_update "${DIR}"
+  fi
+done
