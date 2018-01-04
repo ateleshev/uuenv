@@ -11,7 +11,9 @@ git_update() {
 }
 
 for DIR in ${CURRENT_DIR}/* ; do
-  if [ -d "${DIR}/.git" ]; then
+  if [ ! -d "${DIR}/.git" ]; then
+    echo "Skip: ${DIR}"
+  else
     git_update "${DIR}"
   fi
 done
