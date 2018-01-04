@@ -7,7 +7,6 @@
 # @version | 1.0.0
 #--------------------------------------------------------------------------------#
 
-alias k='kubectl'
 alias l='ls -lh'
 alias ll='ls -lah'
 alias la='ls -la'
