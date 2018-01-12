@@ -18,6 +18,11 @@ alias du='du -h'
 alias dus='du -hs'
 alias tf='tail -f'
 
+# https://github.com/golang/dep
+# go get -u github.com/golang/dep/cmd/dep
+# sudo apt-get install graphviz
+alias depshow='dep status -dot | dot -T png | display'
+
 if [ ${UID} != 0 ]; then
   alias f='firefox'
   alias g='google-chrome'
