@@ -1,0 +1,24 @@
+# URL
+https://docs.docker.com/install/linux/docker-ce/debian/#set-up-the-repository
+
+# APT key
+curl -fsSL https://download.docker.com/linux/debian/gpg | sudo apt-key add -
+
+# Check key
+sudo apt-key fingerprint 0EBFCD88
+
+# APT repository
+# amd64
+sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/debian $(lsb_release -cs) stable"
+# armhf
+echo "deb [arch=armhf] https://download.docker.com/linux/debian $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list
+
+# Install latest
+sudo apt-get update && sudo apt-get install docker-ce
+
+# Install some version
+apt-cache madison docker-ce
+sudo apt-get install docker-ce=<VERSION_STRING>
+
+# Specify cgroup driver for dockerd: cgroupfs|systemd
+echo '{"exec-opts":["native.cgroupdriver=systemd"]}' | jq -r . | sudo tee /etc/docker/daemon.json
