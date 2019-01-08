@@ -17,9 +17,12 @@ sudo apt-get install --reinstall --purge \
   tar zip unzip \
   p7zip p7zip-full p7zip-rar \
   bzip2 bzip2-doc \
+  curl \
   screen vim vim-doc \
   git git-man \
   python python3 \
-  libxml2-utils graphviz \
-  ntp ntpdate tzdata
+  jq libxml2-utils graphviz \
+  ntp ntpdate tzdata \
+  systemd systemd-sysv \
+  apt-transport-https ca-certificates software-properties-common
 

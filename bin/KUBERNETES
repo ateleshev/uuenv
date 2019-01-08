@@ -1,0 +1,33 @@
+# URL
+https://kubernetes.io/docs/setup/independent/install-kubeadm/
+
+# APT key
+curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
+
+# APT repository
+echo "deb http://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee /etc/apt/sources.list.d/kubernetes.list
+
+# Install
+sudo apt-get install -y kubelet kubeadm kubectl
+
+# Aliases
+
+# kubeadm
+cd $(dirname $(which kubeadm))
+sudo ln -s kubeadm ka
+
+# kubectl
+cd $(dirname $(which kubectl))
+sudo ln -s kubectl kc
+
+# Setup
+sudo ka init --ignore-preflight-errors=SystemVerification
+
+# Specify cgroup driver for kubelet: cgroupfs|systemd
+sudo vim /etc/systemd/system/kubelet.service.d/10-kubeadm.conf
+Environment="KUBELET_CGROUP_ARGS=--cgroup-driver=systemd"
+
+# Restart
+sudo systemctl daemon-reload
+sudo systemctl restart kubelet
+
