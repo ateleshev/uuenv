@@ -17,7 +17,7 @@ export BINDIR="/usr/local/bin"
 export UL_LIB_HOME="/usr/local/lib"
 
 ## [L]inker [D]ynamic (https://en.wikipedia.org/wiki/Environment_variable)
-export LD_LIBRARY_PATH="${UL_LIB_HOME}:/usr/lib:/lib"
+export LD_LIBRARY_PATH="${UL_LIB_HOME}:/usr/lib/x86_64-linux-gnu:/lib/x86_64-linux-gnu"
 
 ## Locales configuration
 ## > sudo dpkg-reconfigure locales
