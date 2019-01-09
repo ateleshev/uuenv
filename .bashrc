@@ -37,6 +37,8 @@ export LD_LIBRARY_PATH="${UL_LIB_HOME}:/usr/lib/x86_64-linux-gnu:/lib/x86_64-lin
 ## Language
 #export LANGUAGE="ru_RU:ru"
 
+## Default terminal
+export TERM=xterm-color
 ## Default editor
 export EDITOR=vim;
 ## Default pager
