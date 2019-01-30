@@ -115,12 +115,6 @@ export PS1
 ## PS1 for console MySQL client
 export MYSQL_PS1
 
-##=== [XDebug] ========================================================================== {{{ ===
-
-#export XDEBUG_CONFIG="idekey=xdebug"
-
-##=== [/XDebug] ========================================================================= }}} ===
-
 ##=== [Flex] ============================================================================ {{{ ===
 export FLEX_HOME="${UL_LIB_HOME}/flex"
 
@@ -204,3 +198,19 @@ fi
 
 ##=== [/Aliases] ======================================================================== }}} ===
 
+##=== [Kubernetes] ====================================================================== {{{ ===
+
+if [ ! -f ~/.kube/completion.bash.inc ]; then
+  CMD_KUBECTL=$(which kubectl)
+  if [ -x $CMD_KUBECTL ]; then
+    mkdir -p ~/.kube
+    $CMD_KUBECTL completion bash > ~/.kube/completion.bash.inc
+  fi
+fi
+
+# Connect the auto-completion code for the current session
+if [ -f ~/.kube/completion.bash.inc ]; then
+  source ~/.kube/completion.bash.inc
+fi
+
+##=== [/Kubernetes] ===================================================================== }}} ===
