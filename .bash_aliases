@@ -7,9 +7,9 @@
 # @version | 1.0.0
 #--------------------------------------------------------------------------------#
 
-alias l='ls -lh'
-alias ll='ls -lah'
-alias la='ls -la'
+alias l='ls -lh --group-directories-first'
+alias ll='ls -lah --group-directories-first'
+alias la='ls -la --group-directories-first'
 alias h='history 50'
 alias j='jobs -l'
 alias cpr='cp -r'
