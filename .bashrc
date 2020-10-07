@@ -200,7 +200,7 @@ fi
 
 ##=== [Kubernetes] ====================================================================== {{{ ===
 
-export KUBECONFIG=/etc/kubernetes/admin.conf
+#export KUBECONFIG=/etc/kubernetes/admin.conf
 
 if [ ! -f ~/.kube/completion.bash.inc ]; then
   CMD_KUBECTL=$(which kubectl)
