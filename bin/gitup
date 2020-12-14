@@ -5,6 +5,10 @@ CURRENT_DIR=`pwd`
 git_update() {
   echo "Update: ${1}"
   cd ${1}
+
+  git config pull.rebase false
+  git config pull.ff only
+
   git fetch -p
   git pull
   git br

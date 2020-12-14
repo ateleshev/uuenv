@@ -115,6 +115,17 @@ function! GoFmt()
   :execute "set filetype=go"
 endfunction
 
+" :call HexDump() - make a hexdump
+function! HexDump()
+  :%!xxd
+  :set ft=xxd
+endfunction
+
+" :call HexReverse() - reverse operation: convert (or patch) hexdump into binary.
+function! HexReverse()
+  :%!xxd -r
+endfunction
+
 " :retab - replace tabs to spaces
 " :%s/\s\+$//g - delete all spaces in end of line
 " :set number - show number of line
