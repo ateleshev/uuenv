@@ -17,7 +17,7 @@ export BINDIR="/usr/local/bin"
 export UL_LIB_HOME="/usr/local/lib"
 
 ## [L]inker [D]ynamic (https://en.wikipedia.org/wiki/Environment_variable)
-export LD_LIBRARY_PATH="${UL_LIB_HOME}:/usr/lib/x86_64-linux-gnu:/lib/x86_64-linux-gnu"
+export LD_LIBRARY_PATH="/usr/lib/x86_64-linux-gnu:/lib/x86_64-linux-gnu:/usr/local/lib:/usr/lib:/lib"
 
 ## Locales configuration
 ## > sudo dpkg-reconfigure locales
@@ -200,6 +200,8 @@ fi
 
 ##=== [Kubernetes] ====================================================================== {{{ ===
 
+#export KUBECONFIG=/etc/kubernetes/admin.conf
+
 if [ ! -f ~/.kube/completion.bash.inc ]; then
   CMD_KUBECTL=$(which kubectl)
   if [ -x $CMD_KUBECTL ]; then
@@ -214,3 +216,10 @@ if [ -f ~/.kube/completion.bash.inc ]; then
 fi
 
 ##=== [/Kubernetes] ===================================================================== }}} ===
+
+##=== [ContainerD] ====================================================================== {{{ ===
+
+#export CRI_RUNTIME_ENDPOINT="unix:///var/run/dockershim.sock"
+#export CRI_RUNTIME_ENDPOINT="unix:///run/containerd/containerd.sock"
+
+##=== [/ContainerD] ===================================================================== }}} ===
