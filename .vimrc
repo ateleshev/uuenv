@@ -53,6 +53,9 @@ nnoremap <S-F8> :nohlsearch<CR>
 " в визуальном режиме по команде * подсвечивать выделение
 vnoremap * y :execute ":let @/=@\""<CR> :execute "set hlsearch"<CR>
 
+" - enable syntax formatting for Dockerfile
+au BufRead,BufNewFile Dockerfile.* set filetype=dockerfile
+
 " - enable syntax formatting for GO (golang.org)
 au BufRead,BufNewFile *.go set filetype=go
 au BufWritePost *.go !gofmt -w %
