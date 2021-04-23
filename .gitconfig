@@ -25,6 +25,7 @@
   st    = status
   br    = branch
   brv   = branch -avv
+  brd   = branch -D
   fp    = format-patch --stdout -1
   last  = log -1 HEAD
   hist  = log --pretty=format:\"%h | %ad | %s%d [%an]\" --graph --date=short
