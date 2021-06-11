@@ -160,6 +160,7 @@ export CLASSPATH
 
 ##=== [Golang] ========================================================================== {{{ ===
 
+export GOSUMDB="off"
 export GOROOT="${UL_LIB_HOME}/go"
 ## set PATH so it includes GO bin if it exists
 if [ -d "$GOROOT/bin" ] ; then
