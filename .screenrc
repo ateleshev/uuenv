@@ -27,9 +27,9 @@ hardstatus string '%{= BW} %d/%m/%y %{= kG} %H %{W}[%n] %=[ %w ] [ %{r}%l%{W} ] 
 shell -$SHELL
 
 # These apps are started up on default when a new screen-session is started. 
-screen -t ~ 0 bash 
-screen -t db 1 bash
-screen -t / 2 bash 
+screen -t ~  0 $SHELL
+screen -t db 1 $SHELL
+screen -t /  2 $SHELL
  
 # change the default c-a to c-e, use c-e s to get a litteral c-e 
 #escape ^Ee

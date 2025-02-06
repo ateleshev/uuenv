@@ -25,6 +25,7 @@ set ai                 " - for disable :set noai
 set expandtab
 set fdm=marker
 set hlsearch           " - for disable :set nohlsearch
+set mouse=v
 
 set encoding=utf-8
 set termencoding=utf-8
